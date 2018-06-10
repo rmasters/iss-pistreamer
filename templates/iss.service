@@ -2,11 +2,16 @@
 Description=ISS Streamer
 Requires=network.target
 After=syslog.target network.target
+# We rely on systemd to restart when a stream is dropped, but restarting 3 times
+# a second is indicative that something else is wrong.
+StartLimitBurst=3
+StartLimitIntervalSec=1
 
 [Service]
 Type=simple
 ExecStart={{ iss_bin_install }}
 User=pi
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
