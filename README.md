@@ -4,7 +4,7 @@ I wanted an always-on window from the ISS in my living room, so I made this.
 Tooling largely based on [Miguel's blog post][blog], jazzed up a little with
 Ansible and a systemd service.
 
-A little Ansible role and playbook that:
+An Ansible role and playbook that:
 
 *   Installs [omxplayer](https://github.com/popcornmix/omxplayer), a nice little
     command-line video player for the RPi,
@@ -19,8 +19,8 @@ A little Ansible role and playbook that:
 ### If you have a Raspberry Pi and just want it working...
 
 This is the current "simple" installation method :smile: - installing Ansible
-on the Raspberry Pi, and applying this playbook locally. If you're comfortable
-with Ansible and remote provisioning, by all means do that instead. 
+on the Raspberry Pi, and applying [this playbook][pb] locally. If you're
+comfortable with Ansible and remote provisioning, by all means do that instead. 
 
 1.  Follow the [instructions to install Raspbian Desktop][raspbian-desktop],
     a.  After you've copied to your SD card - create an empty file called `ssh`
@@ -30,10 +30,10 @@ with Ansible and remote provisioning, by all means do that instead.
     network (likely a 192.x.x.x address),
 3.  Using [an SSH client][ssh] or by connecting a keyboard and monitor, and
     opening the Terminal app, run the following commands:
-    a.  `sudo apt install ansible git`
-    b.  `git clone https://github.com/rmasters/iss-pistreamer`
-    c.  `cd iss-pistreamer/installer/`
-    d.  `make dependencies local`
+    1.  `sudo apt install ansible git`
+    2.  `git clone https://github.com/rmasters/iss-pistreamer`
+    3.  `cd iss-pistreamer/installer/`
+    4.  `make dependencies local`
 4.  The attached display should show the current webcam view shortly after the
     playbook finishes. If not, try rebooting, and if still not, report an issue.
 
@@ -60,14 +60,22 @@ startup tasks, you'll need to include those tasks:
     tasks_from: startup
 ```
 
-See [site.yml](./site.yml) for more details.
+See [site.yml](./installer/site.yml) for more details.
 
-## Role variables (configuration)
+### Role variables
+
+Configuration options - see [defaults/main.yml](./defaults/main.yml) for the
+canonical values.
 
 |       Option key     |      Description      |                 Default value                 |
 | -------------------- | --------------------- | --------------------------------------------- |
 | `iss_stream_url`     | Stream URL to use     | `{{ iss_ustream_url }}`                       |
+| `iss_video_format`   | Stream format to use  | `best` - [see the livestreamer docs][lscli]   |
 | `iss_omx_resolution` | Resolution of display | Null, expects array, e.g. `[1920,1080]`       |
+
+Less-often changed options here:
+
+|       Option key     |      Description      |                 Default value                 |
 | -------------------- | --------------------- | --------------------------------------------- |
 | `iss_ustream_url`    | Default UStream URL   | http://ustream.tv/channel/iss-hdev-payload    |
 | `iss_youtube_url`    | Default YouTube URL   | https://www.youtube.com/watch?v=yjkGMeSia1s   |
@@ -96,7 +104,9 @@ The ISS lost connection to one of the satellites (happens a lot) - the
 [HDEV homepage][hdev] has some notes.
 
 [blog]: https://blog.miguelgrinberg.com/post/watch-live-video-of-earth-on-your-raspberry-pi
-[raspb-desktop]: https://www.raspberrypi.org/downloads/raspbian/
+[raspbian-desktop]: https://www.raspberrypi.org/downloads/raspbian/
 [ssh]: https://www.raspberrypi.org/documentation/remote-access/ssh/
 [esa]: http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station
 [hdev]: https://eol.jsc.nasa.gov/ESRS/HDEV/
+[pb]: ./installer/
+[lscli]: http://docs.livestreamer.io/cli.html#command-line-usage
