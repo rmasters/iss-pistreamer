@@ -1,5 +1,7 @@
 # iss-pistreamer
 
+[![rmasters.iss-pistreamer](https://img.shields.io/ansible/role/26241.svg)](https://galaxy.ansible.com/rmasters/iss-pistreamer/)
+
 I wanted an always-on window from the ISS in my living room, so I made this.
 Tooling largely based on [Miguel's blog post][blog], jazzed up a little with
 Ansible and a systemd service.
@@ -43,12 +45,11 @@ To install the dependencies required, simply include the role, perhaps using
 ansible-galaxy to fetch it:
 
 ```
-ansible-galaxy install git+https://github.com/rmasters/iss-pistreamer.git
+ansible-galaxy install rmasters.iss-pistreamer
 
 # Or in your requirements.yml
 
-- src: https://github.com/rmasters/iss-pistreamer.git
-  scm: git
+- src: rmasters.iss-pistreamer
 ```
 
 Including the role will only install the software required, to register the
@@ -56,7 +57,7 @@ startup tasks, you'll need to include those tasks:
 
 ```
 - include_role:
-    role: iss-pistreamer
+    role: rmasters.iss-pistreamer
     tasks_from: startup
 ```
 
