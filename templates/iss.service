@@ -1,0 +1,12 @@
+[Unit]
+Description=ISS Streamer
+Requires=network.target
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart={{ iss_bin_install }}
+User=pi
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+- name: Install iss script
+  template:
+    src: iss.sh
+    dest: "{{ iss_bin_install }}"
+    mode: "ugo=rx"
+  become: yes
+
+- name: Install systemd service
+  template:
+    src: iss.service
+    dest: /etc/systemd/system/iss.service
+  become: yes
+
+- name: Enable systemd service
+  systemd:
+    name: iss
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+  become: yes
+

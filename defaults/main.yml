@@ -1,0 +1,9 @@
+iss_ustream_url: http://ustream.tv/channel/iss-hdev-payload
+iss_youtube_url: https://www.youtube.com/watch?v=yjkGMeSia1s
+
+iss_stream_url: "{{ iss_ustream_url }}"
+iss_video_format: best
+iss_omx_resolution: ~
+# iss_omx_resolution: [1024, 768]
+
+iss_bin_install: /usr/local/bin/iss

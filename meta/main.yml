@@ -1,0 +1,15 @@
+---
+
+galaxy_info:
+  author: Ross Masters
+  description: Sets up an ISS HD Feed streaming Raspberry Pi
+  license: MIT
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+  galaxy_tags:
+    - iss
+
+dependencies: []
+

@@ -1,0 +1,28 @@
+- name: Update apt-cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Install omxplayer
+  apt:
+    name: omxplayer
+    state: present
+  become: yes
+
+- name: Install livestreamer/Ansible-pip dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: yes
+  with_items:
+    - python3-pip
+    - python3-librtmp
+
+- name: Install livestreamer
+  pip:
+    name: livestreamer
+    state: present
+    executable: pip3
+  become: yes
+
