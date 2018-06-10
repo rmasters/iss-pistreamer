@@ -26,3 +26,10 @@
     executable: pip3
   become: yes
 
+- name: Install iss script
+  template:
+    src: iss.sh
+    dest: "{{ iss_bin_install }}"
+    mode: "ugo=rx"
+  become: yes
+
