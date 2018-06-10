@@ -1,0 +1,8 @@
+- hosts: all
+  roles:
+    - iss-pistreamer
+  tasks:
+    - include_role:
+        role: iss-pistreamer
+        tasks_from: startup.yml
+
